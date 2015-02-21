@@ -6,7 +6,6 @@
 import { get } from "ember-metal/property_get";
 import { set } from "ember-metal/property_set";
 import { Mixin } from "ember-metal/mixin";
-import { read } from "ember-metal/streams/utils";
 import TargetActionSupport from "ember-runtime/mixins/target_action_support";
 
 /**
@@ -185,13 +184,7 @@ var TextSupport = Mixin.create(TargetActionSupport, {
   },
 
   _elementValueDidChange: function() {
-    var newValue;
-    if (this.getStream('value')) {
-      newValue = read(this.getStream('value'));
-    } else {
-      newValue = this.$().val();
-    }
-    set(this, 'value', newValue);
+    set(this, 'value', this.$().val());
   },
 
   change: function(event) {
