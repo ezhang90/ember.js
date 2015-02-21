@@ -2,7 +2,6 @@
 @module ember
 @submodule ember-views
 */
-import { set } from "ember-metal/property_set";
 import { read } from "ember-metal/streams/utils";
 import Component from "ember-views/views/component";
 import TextSupport from "ember-views/mixins/text_support";
@@ -116,12 +115,9 @@ export default Component.extend(TextSupport, {
   max: null,
 
   _elementValueDidChange: function() {
-    var newValue;
+    this._super.apply(this, arguments);
     if (this.getStream('value')) {
-      newValue = read(this.getStream('value'));
-    } else {
-      newValue = this.$().val();
+      read(this.getStream('value'));
     }
-    set(this, 'value', newValue);
   }
 });
