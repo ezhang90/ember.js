@@ -186,8 +186,8 @@ var TextSupport = Mixin.create(TargetActionSupport, {
 
   _elementValueDidChange: function() {
     var newValue;
-    if (this._keywords.view.getStream('value')) {
-      newValue = read(this._keywords.view.getStream('value'));
+    if (this.getStream('value')) {
+      newValue = read(this.getStream('value'));
     } else {
       newValue = this.$().val();
     }
