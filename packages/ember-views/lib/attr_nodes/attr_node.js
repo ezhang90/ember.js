@@ -26,7 +26,7 @@ AttrNode.prototype.init = function init(attrName, simpleAttrValue) {
   this.isDestroying = false;
   this.lastValue = null;
 
-  subscribe(this.attrValue, this.rerender, this);
+  subscribe(this.attrValue, this.renderIfDirty, this);
 };
 
 AttrNode.prototype.renderIfDirty = function renderIfDirty() {
@@ -57,12 +57,12 @@ AttrNode.prototype.render = function render(buffer) {
   }
 };
 
-AttrNode.prototype.rerender = function render() {
+AttrNode.prototype.rerender = function rerender() {
   this.isDirty = true;
   run.schedule('render', this, this.renderIfDirty);
 };
 
-AttrNode.prototype.destroy = function render() {
+AttrNode.prototype.destroy = function destroy() {
   this.isDestroying = true;
   this.isDirty = false;
 
