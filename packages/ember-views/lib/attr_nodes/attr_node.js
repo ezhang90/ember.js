@@ -26,7 +26,7 @@ AttrNode.prototype.init = function init(attrName, simpleAttrValue) {
   this.isDestroying = false;
   this.lastValue = null;
 
-  subscribe(this.attrValue, this.renderIfDirty, this);
+  subscribe(this.attrValue, this.rerenderIfDirty, this);
 };
 
 AttrNode.prototype.renderIfDirty = function renderIfDirty() {
@@ -62,11 +62,15 @@ AttrNode.prototype.rerender = function rerender() {
   run.schedule('render', this, this.renderIfDirty);
 };
 
+AttrNode.prototype.rerenderIfDirty = function rerenderIfDirty() {
+  run.schedule('render', this, this.renderIfDirty);
+};
+
 AttrNode.prototype.destroy = function destroy() {
   this.isDestroying = true;
   this.isDirty = false;
 
-  unsubscribe(this.attrValue, this.rerender, this);
+  unsubscribe(this.attrValue, this.rerenderIfDirty, this);
 
   if (!this.removedFromDOM && this._renderer) {
     this._renderer.remove(this, true);
